@@ -5,20 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Products</title>
+    <title>Product Details Page</title>
 </head>
 <body>
-<h1>This is product page</h1>
-<h4>Hello {{name}}</h4>
-<ul>
-    {% for product in productsList %}
-    <li>
-        <a href="/api/v1/products/{{product.id}}">
-            <h1>{{product.id}} : {{product.title}}</h1>
-        </a>
-    </li>
-    {% endfor %}
-</ul>
+<h1>This is page is for {{productDetail.title}}</h1>
 
 </body>
 </html>

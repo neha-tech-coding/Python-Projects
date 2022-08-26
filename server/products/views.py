@@ -13,6 +13,16 @@ products=[{
 def getProducts(request,*args,**kwargs):
     return render(request,'products/products.html',{"productsList":products,"name":"Arshad"})
 
+def getProductById(request,id):
+    productId=int(id)
+    for product in products:
+        if product["id"]==productId:
+            content=product
+            return render(request,'products/productDetails.html',{"productDetail":content})
+
+
+
+
 
 #
 # def getProducts(request,*args,**kwargs):
