@@ -11,7 +11,7 @@ products=[{
 }]
 
 def getProducts(request,*args,**kwargs):
-    return render(request,'products/products.html',{"productsList":products,"name":"Arshad"})
+    return render(request,'products/products.html',{"productsList":products,"name":"Neha"})
 
 
 #
