@@ -9,7 +9,7 @@ users_list=[{
 },{
     "id":2,"title":"Arshad"
 },{
-    "id":3, "tile":"Chhanda"
+    "id":3, "title":"Chhanda"
 }]
 
 def getUsers(request, *args, **kwargs):
@@ -18,6 +18,6 @@ def getUsers(request, *args, **kwargs):
 def getUsersById(request, id):
     user_id=int(id)
     for users in users_list:
-        if users[id]==user_id:
+        if users["id"]==user_id:
             content=users
             return render(request,'users/users.html',{"usersDetail":content})
