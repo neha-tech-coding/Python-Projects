@@ -1,33 +1,59 @@
 from django.shortcuts import render
-from django.http import JsonResponse
-import requests
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import ProductSerializer
+from .models import Product
 
-# Create your views here.
-# baseUrl='https://jsonplaceholder.typicode.com/posts'
-products=[{
-    "id":1,"title":"abc"
-},{
-    "id":2,"title":"xyz"
-}]
+# queryset=modelName.objects.all()
 
-def getProducts(request,*args,**kwargs):
-    return render(request,'products/products.html',{"productsList":products,"name":"Arshad"})
+@api_view(['GET'])
+def getProducts(request):
+    products=Product.objects.all()
+    serializer=ProductSerializer(products,many=True)
+    return Response(serializer.data)
 
+@api_view(['GET'])
 def getProductById(request,id):
-    productId=int(id)
-    for product in products:
-        if product["id"]==productId:
-            content=product
-            return render(request,'products/productDetails.html',{"productDetail":content})
+    product=Product.objects.get(id=id)
+    serializer=ProductSerializer(product,many=False)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def createProduct(request):
+    serializer=ProductSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()         #database save
+    else:
+        return Response(exception=True,status=405)
+    return Response(serializer.data)
+
+@api_view(['PUT'])     #TODO--- Find the Difference
+def updateProduct(request,id):
+    product=Product.objects.get(id=id)
+    serializer=ProductSerializer(instance= product,data=request.data,partial=True)
+    # print(request.data)
+    # print(serializer)
+    if serializer.is_valid():
+        serializer.save()
+    else:
+        return Response(exception=True, status=405)
+    return Response(serializer.data)
 
 
 
 
 
-#
-# def getProducts(request,*args,**kwargs):
-#     posts=requests.get(baseUrl).json()
-#     return JsonResponse({"data":posts,"message":"I am from get products","status":200})
+
+
+
+
+
+
+
+
+
+
 
 
 
