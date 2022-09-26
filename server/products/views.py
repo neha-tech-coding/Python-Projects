@@ -40,6 +40,20 @@ def updateProduct(request,id):
         return Response(exception=True, status=405)
     return Response(serializer.data)
 
+@api_view(['DELETE'])
+def deleteProduct(request,id):
+    try:
+        product=Product.objects.get(id=id)
+        product.delete()
+        return Response(status=204)
+    except:
+        return Response(exception=True,status=404)
+
+
+
+
+
+
 
 
 
